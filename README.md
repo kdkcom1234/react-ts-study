@@ -17,3 +17,15 @@ npm install
 ```bash
 npm run build
 ```
+
+### 프리뷰 모드로 실행
+
+```bash
+npm run preview
+```
+
+### 개발 모드로 실행
+
+```bash
+npm start
+```
