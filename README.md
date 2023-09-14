@@ -5,3 +5,15 @@
 ```bash
 npm install
 ```
+
+## 모듈 번들
+
+```js
+  "scripts": {
+    "build": "webpack --mode production"
+  },
+```
+
+```bash
+npm run build
+```
