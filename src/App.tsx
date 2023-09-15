@@ -14,6 +14,7 @@
 
 import react_icon from "./assets/react-icon.png";
 import intro from "./assets/intro.mp4";
+import WelcomeMessage from "./components/WelcomeMessage";
 
 const App = () => {
   // React.createElement(component, props, ...children)
@@ -27,6 +28,7 @@ const App = () => {
           <source src={intro} type="video/mp4" />
         </video>
       </div>
+      <WelcomeMessage />
     </div>
   );
 };
