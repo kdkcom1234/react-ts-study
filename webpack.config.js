@@ -5,16 +5,16 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 /** @type {import('webpack').Configuration} */
 module.exports = {
   // 시작지점의 코드(여기서부터 번들링이 시작)
-  entry: "./src/index.ts",
+  entry: "./src/index.tsx",
   // entry부터 시작해서 확장자가 ts/js 인 파일들을 번들링하겠다.
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".tsx", ".ts", ".js"],
   },
   // 모듈 해석기
   module: {
     rules: [
       {
-        test: /\.ts$/, // .ts 파일에 대해서
+        test: /\.tsx?$/, // .ts 파일에 대해서
         use: "ts-loader", // ts-loader를 이용하여 해석하겠다.
         exclude: /node_modules/, // 예외 디렉터리
       },
