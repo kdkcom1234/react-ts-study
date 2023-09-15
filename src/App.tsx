@@ -15,8 +15,17 @@
 import react_icon from "./assets/react-icon.png";
 import intro from "./assets/intro.mp4";
 import WelcomeMessage from "./components/WelcomeMessage";
+import Button from "./components/Button";
+// import Button from "./components/Button";
 
 const App = () => {
+  const handleClickPrimaryButton = () => {
+    alert("Click me!!");
+  };
+  const handleClickSecondaryButton = () => {
+    alert("Cancel");
+  };
+
   // React.createElement(component, props, ...children)
   // React.createElement("div", null, "Hello, React!!")
   return (
@@ -28,7 +37,21 @@ const App = () => {
           <source src={intro} type="video/mp4" />
         </video>
       </div>
-      <WelcomeMessage />
+      {/* React Props에 값을 대입 */}
+      <WelcomeMessage name={"React Typescript"} />
+
+      {/* props-down , event-up  */}
+      {/* 부모-자식 컴포넌트간 데이터 교환방법 */}
+      <Button
+        label="Click me!"
+        color="primary"
+        onClick={handleClickPrimaryButton}
+      />
+      <Button
+        label="Cancel"
+        color="secondary"
+        onClick={handleClickSecondaryButton}
+      />
     </div>
   );
 };
