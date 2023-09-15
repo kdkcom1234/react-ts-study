@@ -1,5 +1,6 @@
 // commonjs 방식의 모듈 import
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { ProvidePlugin } = require("webpack");
 
 // commonjs 방식의 모듈선언 및 내보내기
 /** @type {import('webpack').Configuration} */
@@ -14,11 +15,20 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/, // .ts 파일에 대해서
-        use: "ts-loader", // ts-loader를 이용하여 해석하겠다.
-        exclude: /node_modules/, // 예외 디렉터리
+        test: /\.tsx?$/,
+        loader: "esbuild-loader",
+        options: {
+          target: "es2020", // 지원하는 ECMAScript 버전 설정
+        },
       },
     ],
+    // rules: [
+    //   {
+    //     test: /\.tsx?$/, // .ts 파일에 대해서
+    //     use: "ts-loader", // ts-loader를 이용하여 해석하겠다.
+    //     exclude: /node_modules/, // 예외 디렉터리
+    //   },
+    // ],
   },
   // 번들링이 완료된 결과물에 대한 설정
   output: {
@@ -33,6 +43,9 @@ module.exports = {
     // 번들된 파일을 삽입할 마크업 파일을 설정
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+    }),
+    new ProvidePlugin({
+      React: "react",
     }),
   ],
   // 웹팩 개발서버에 대한 설정을 넣는 곳
