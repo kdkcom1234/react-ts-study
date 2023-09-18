@@ -1,4 +1,10 @@
-import { useEffect, useState } from "react";
+import {
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Alert from "./Alert";
 
 // 1. props와 state 둘다 렌더링 결과물에 영향을 주는 변수
@@ -19,7 +25,6 @@ const Counter = () => {
   // 렌더링하는 시점에 변경된 상태값이 적용
   // console.log("--렌더링하는 상태 값--");
   // console.log(count, showAlert);
-
   const handleIncrement = () => {
     // 숫자값 증가
     // 상태값 변경함수에 변경값을 대입
@@ -41,9 +46,15 @@ const Counter = () => {
     // })();
   };
 
-  const handleAlertClosed = () => {
-    setShowAlert(false);
-  };
+  // 함수를 메모이징(memo-ising)
+  // 함수의 현재 상태를 저장
+  // useCallback(함수블록, 의존변수배열)
+  // 의존변수 배열의 값이 바뀔때만 함수를 재생성
+  const handleAlertClosed = useCallback(() => {
+    if (showAlert) {
+      setShowAlert(false);
+    }
+  }, [showAlert]);
 
   // 상태값 변경이나 컴포넌트 라이프사이클 변동에 따른 처리
   // useEffect(함수블럭, 의존변수배열)
@@ -52,16 +63,19 @@ const Counter = () => {
   useEffect(() => {
     if (count != 0) {
       // console.log("--얼럿박스  표시--");
-      setShowAlert(true);
+      if (!showAlert) {
+        setShowAlert(true);
+      }
     }
-  }, [count]);
+  }, [count, showAlert]);
 
   return (
     <>
       {/* 조건부 렌더링 */}
       {showAlert && (
         <Alert
-          message={`증가되었습니다. 현재값: ${count}`}
+          // message={`증가되었습니다. 현재값: ${count}`}
+          message={"증가되었습니다."}
           onClose={handleAlertClosed}
         />
       )}
