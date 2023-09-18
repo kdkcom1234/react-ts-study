@@ -1,10 +1,4 @@
-import {
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 import Alert from "./Alert";
 
 // 1. props와 state 둘다 렌더링 결과물에 영향을 주는 변수
@@ -50,11 +44,11 @@ const Counter = () => {
   // 함수의 현재 상태를 저장
   // useCallback(함수블록, 의존변수배열)
   // 의존변수 배열의 값이 바뀔때만 함수를 재생성
-  const handleAlertClosed = useCallback(() => {
+  const handleAlertClosed = () => {
     if (showAlert) {
       setShowAlert(false);
     }
-  }, [showAlert]);
+  };
 
   // 상태값 변경이나 컴포넌트 라이프사이클 변동에 따른 처리
   // useEffect(함수블럭, 의존변수배열)
