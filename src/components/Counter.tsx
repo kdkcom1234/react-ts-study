@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Alert from "./Alert";
 
 // 1. props와 state 둘다 렌더링 결과물에 영향을 주는 변수
@@ -15,20 +15,53 @@ const Counter = () => {
   // 처음 렌더링할 때(mounted)만 초깃값이 적용되고,
   // 그 이후에 렌더링될 때는 기존에 저장된 값을 다시 불러옴
   const [count, setCount] = useState(0);
-  console.log(count);
+  const [showAlert, setShowAlert] = useState(false);
+  // 렌더링하는 시점에 변경된 상태값이 적용
+  console.log("--렌더링하는 상태 값--");
+  console.log(count, showAlert);
 
   const handleIncrement = () => {
     // 숫자값 증가
     // 상태값 변경함수에 변경값을 대입
     // 상태값 변경요청 -> innerText가 변경 -> 렌더링
+    console.log("--카운트값 증가--");
     setCount(count + 1);
+    // setShowAlert(true);
+
+    // 변경된 상태값 출력
+    // 상태값은 변경이 안 됨
+    // console.log("--변경된 상태 값--");
+    // console.log(count, showAlert);
+
+    // 리액트 18부터는 이벤트 핸들러 함수 안에서는
+    // 비동기 블럭에 상태변경 요청을해도
+    // 변경요청 한 번에 몰아서 처리한다.
+    // (async () => {
+    //   setShowAlert(true);
+    // })();
   };
 
-  const handleAlertClosed = () => {};
+  const handleAlertClosed = () => {
+    setShowAlert(false);
+  };
+
+  // 상태값 변경이나 컴포넌트 라이프사이클 변동에 따른 처리
+  // useEffect(함수블럭, 의존변수배열)
+  // 의존변수가 바뀌면 함수 블럭이 실행됨
+  // 가장 처음에(의존변수가 초기화되는 시점)실행됨
+  useEffect(() => {
+    if (count != 0) {
+      console.log("--얼럿박스  표시--");
+      setShowAlert(true);
+    }
+  }, [count]);
 
   return (
     <>
-      <Alert message="증가되었습니다." onClose={handleAlertClosed} />
+      {/* 조건부 렌더링 */}
+      {showAlert && (
+        <Alert message="증가되었습니다." onClose={handleAlertClosed} />
+      )}
       <div>
         <p>현재 카운트: {count}</p>
         <button onClick={handleIncrement}>증가</button>
