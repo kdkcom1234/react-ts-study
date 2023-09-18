@@ -17,14 +17,14 @@ const Counter = () => {
   const [count, setCount] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
   // 렌더링하는 시점에 변경된 상태값이 적용
-  console.log("--렌더링하는 상태 값--");
-  console.log(count, showAlert);
+  // console.log("--렌더링하는 상태 값--");
+  // console.log(count, showAlert);
 
   const handleIncrement = () => {
     // 숫자값 증가
     // 상태값 변경함수에 변경값을 대입
     // 상태값 변경요청 -> innerText가 변경 -> 렌더링
-    console.log("--카운트값 증가--");
+    // console.log("--카운트값 증가--");
     setCount(count + 1);
     // setShowAlert(true);
 
@@ -51,7 +51,7 @@ const Counter = () => {
   // 가장 처음에(의존변수가 초기화되는 시점)실행됨
   useEffect(() => {
     if (count != 0) {
-      console.log("--얼럿박스  표시--");
+      // console.log("--얼럿박스  표시--");
       setShowAlert(true);
     }
   }, [count]);
@@ -60,7 +60,10 @@ const Counter = () => {
     <>
       {/* 조건부 렌더링 */}
       {showAlert && (
-        <Alert message="증가되었습니다." onClose={handleAlertClosed} />
+        <Alert
+          message={`증가되었습니다. 현재값: ${count}`}
+          onClose={handleAlertClosed}
+        />
       )}
       <div>
         <p>현재 카운트: {count}</p>
