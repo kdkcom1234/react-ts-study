@@ -20,6 +20,14 @@
     // 어디선가 글로벌 수준에 React import를 해야함.
     "jsx": "preserve",
     // emotion 사용에 필요
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "plugins": [
+      {
+        "name": "@styled/typescript-styled-plugin",
+        "lint": {
+          "validProperties": ["label"]
+        }
+      }
+    ],    
   }
 }

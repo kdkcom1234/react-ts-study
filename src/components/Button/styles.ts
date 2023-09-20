@@ -33,7 +33,7 @@ const getHeight = ({
   } else if (size === "lg") {
     return 40;
   } else {
-    return 30; // default medium
+    return 35; // default medium
   }
 
   //..
@@ -41,6 +41,7 @@ const getHeight = ({
 
 // style.엘리먼트명<속성타입>`스타일목록`
 export const Button = styled.button<ButtonProps>`
+  padding: 10px 20px;
   border: none;
   border-radius: 4px;
   /* ${(속성) => "반환식"} */
@@ -48,7 +49,28 @@ export const Button = styled.button<ButtonProps>`
     primary ? "blue" : "gray"};
   font-size: ${({ primary }) =>
     primary ? 14 : 13}px;
+  line-height: ${({ primary }) =>
+    primary ? 14 : 13}px;
   height: ${getHeight}px;
   color: white;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  // .css-1ekjfjg:hover
+  // & - 현재 스타일드 컴포넌트의 클래스명
+  &:hover {
+    background-color: ${({ primary }) =>
+      primary ? "darkblue" : "darkgray"};
+  }
+`;
+
+// 기존 스타일드 컴포넌트를 이용하여 다른 컴포넌트 생성
+// 기존 스타일 + 신규 스타일의 css 클래스가 생성됨
+export const OutlinedButton = styled(Button)`
+  border: 2px solid
+    ${({ primary }) =>
+      primary ? "blue" : "gray"};
+  background-color: white;
+  color: ${({ primary }) =>
+    primary ? "blue" : "gray"};
 `;
