@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 function Layout() {
@@ -12,14 +13,25 @@ function Layout() {
             <Link to="/">Home</Link>
           </li>
           <li>
+            {/* 페이지 이동 */}
+            {/* <a href="/todo">Todo</a> */}
+
+            {/* url에 맞는 컴포넌트만 로딩 */}
             <Link to="/todo">Todo</Link>
+          </li>
+          <li>
+            <Link to="/contacts">Contacts</Link>
           </li>
         </ul>
       </nav>
       {/* 세부 화면들이 나오는 곳 */}
       <main>
         {/* 세부경로의 컴포넌트들이 로딩위치 */}
-        <Outlet />
+        <Suspense
+          fallback={<div>Loading...</div>}
+        >
+          <Outlet />
+        </Suspense>
       </main>
     </div>
   );
