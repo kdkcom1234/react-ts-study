@@ -4,7 +4,7 @@ import {
   Container,
   Wrapper,
 } from "./styles";
-import { Button } from "../../Button/styles";
+import { Button } from "@/components/Button/styles";
 
 interface TodoModifyModalProps {
   index: number;

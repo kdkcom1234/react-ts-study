@@ -28,6 +28,12 @@
           "validProperties": ["label"]
         }
       }
-    ],    
+    ],
+    // 초기위치(tsconfig.json의 위치, 프로젝트 최상단)
+    "baseUrl": ".",
+    // 경로의 alias를 추가
+    "paths": {
+      "@/*": ["src/*"]
+    }    
   }
 }

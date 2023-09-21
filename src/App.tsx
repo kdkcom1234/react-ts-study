@@ -1,29 +1,26 @@
-import { useState } from "react";
-import Todo from "./components/todo/Todo";
-import ResetStyle from "./styles/reset";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Home from "./pages/Home";
+import Todo from "./modules/todo/Todo";
 
 const App = () => {
-  const [theme, setTheme] = useState<
-    "light" | "dark"
-  >("light");
-
-  const handleChangeTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  };
-
+  // 라우팅 처리하는 곳의 가장 최상위에 BrowserRouter 감싸줘야함
   return (
-    <div id="app-theme" className={theme}>
-      {/* 글로벌 스타일을 가장 첫부분에 넣어야함 */}
-      <ResetStyle />
-      <button onClick={handleChangeTheme}>
-        {theme}
-      </button>
-      <Todo />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* 컨텐츠 페이지*/}
+        <Route
+          path="/"
+          element={<Home />}
+          index
+        />
+        {/* 기능 모듈 */}
+        <Route path="/todo" element={<Todo />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
