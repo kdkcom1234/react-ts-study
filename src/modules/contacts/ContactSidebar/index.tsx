@@ -1,11 +1,12 @@
+import { Suspense } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 // /contacts -> Layout - ContactSidebar
 // /contacts/form -> Layout - ContactSidebar - ContactForm(Outlet)
 const ContactSidebar = () => {
   return (
-    <>
-      <aside>
+    <div style={{ display: "flex", gap: "20px" }}>
+      <aside style={{ width: "200px" }}>
         <h2>Contacts</h2>
         <ul>
           <li>
@@ -17,9 +18,13 @@ const ContactSidebar = () => {
         </ul>
       </aside>
       <section>
-        <Outlet />
+        <Suspense
+          fallback={<div>Loading...</div>}
+        >
+          <Outlet />
+        </Suspense>
       </section>
-    </>
+    </div>
   );
 };
 
