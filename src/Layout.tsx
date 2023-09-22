@@ -11,7 +11,8 @@ function Layout() {
   // 데이터가 변경되면 컴포넌트가 다시 렌더링된다.
   const { profileData } = useProfileData();
   const { nickname } = profileData;
-  console.log(profileData);
+  // console.log(profileData);
+
   const navigate = useNavigate();
 
   const handleEditProfile = () => {
