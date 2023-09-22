@@ -7,11 +7,25 @@ interface ContactData {
   phone: string;
 }
 
+// // 페이징 정보를 글로벌 상태로 관리하게 된다면,,
+// interface ContactPagingData {
+//   page?: number;
+//   size?: number;
+//   last?: boolean;
+//   contents: ContactData[];
+// }
+
 const INIT_DATA: ContactData[] = [];
 const CONTACTS_DATA_KEY = "@data/contacts";
 
 // 데이터를 가져오는 함수(서버, 로컬스토리지, 캐시, webSQL)
-const contactsFetcher = () => {
+const contactsFetcher = ([key, page]) => {
+  // console.log(key);
+  // console.log(page);
+  console.log("--call fetcher--");
+
+  // fetch /contacts/paging?page={page}&size=20
+
   const jsonStr = localStorage.getItem(
     CONTACTS_DATA_KEY
   );
@@ -25,12 +39,17 @@ const contactsFetcher = () => {
   return INIT_DATA;
 };
 
-export const useContactsData = () => {
+export const useContactsData = (page: number) => {
   const { data: contactsData, mutate } = useSWR<
     ContactData[]
-  >(CONTACTS_DATA_KEY, contactsFetcher, {
+  >([CONTACTS_DATA_KEY, page], contactsFetcher, {
     // 캐시/또는 데이터가져오기 이후에 데이터가 없을 때 반환하는 데이터
     fallbackData: INIT_DATA,
+    // 포커스될때 fetcher로 가져오기 해제
+    // rebalidate: 캐시와 fetcher로 가져온 데이터를 비교 후 반환
+    revalidateOnFocus: false,
+    // // 특정 주기별로 데이터 가져오기
+    // refreshInterval: 5000,
   });
 
   function createContactData(
@@ -45,9 +64,9 @@ export const useContactsData = () => {
     // 데이터를 변경하고 변경된 데이터를 반환
     // mutate((이전데이터) => {... return 변경된데이터})
     mutate((prevData: ContactData[]) => {
-      console.log("--contacts-prev-data--");
-      // 데이터 가져오기 이전이고, 최초의 상태변경이면 undefined로 되어있음
-      console.log(prevData);
+      // console.log("--contacts-prev-data--");
+      // // 데이터 가져오기 이전이고, 최초의 상태변경이면 undefined로 되어있음
+      // console.log(prevData);
 
       // 변경된 데이터
       let nextData: ContactData[];
@@ -76,7 +95,9 @@ export const useContactsData = () => {
 
       // 변경된 데이터(상태값)를 반환
       return nextData;
-    });
+    }, false);
+    //mutate(처리함수, false);
+    //mutate 이후에 캐시만 업데이트 하고, fetcher를 처리하지 않음
   }
 
   return { contactsData, createContactData };
