@@ -14,7 +14,7 @@ interface PostItem {
 
 interface PostFile {
   contentType: string;
-  originalFileName: String;
+  originalFileName: string;
   uuidFileName: string;
 }
 
@@ -132,6 +132,7 @@ const PostList = () => {
               <div>
                 {post.files.map((file) => (
                   <MediaElement
+                    key={file.uuidFileName}
                     uuidFileName={
                       file.uuidFileName
                     }

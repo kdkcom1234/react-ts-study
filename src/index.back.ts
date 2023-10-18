@@ -14,16 +14,20 @@ import metadata from "./module";
 // let name = "Javascript!!";
 
 // 타입 선언
-let name : string;
+let name: string;
 // name = 1;
 name = "Javascript";
 
 console.log(
-  greet(`${name}-${appName}
+  greet(
+    `${name}-${appName}
   -${metadata.version}-${metadata.creator}
-  -${user.name}-${user.age}`, "male")
+  -${user.name}-${user.age}`,
+    "male"
+  )
 );
 
-document.getElementById("root").innerHTML = greet(`${name}-${appName}
+document.getElementById("root").innerHTML =
+  greet(`${name}-${appName}
 -${metadata.version}-${metadata.creator}
 -${user.name}-${user.age}`);

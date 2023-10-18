@@ -1,11 +1,11 @@
 export function getCookie(
   name: string
 ): string | undefined {
-  let matches = document.cookie.match(
+  const matches = document.cookie.match(
     new RegExp(
       "(?:^|; )" +
         name.replace(
-          /([\.$?*|{}\(\)\[\]\\\/\+^])/g,
+          /([.$?*|{}()[\]\\/+^])/g,
           "\\$1"
         ) +
         "=([^;]*)"

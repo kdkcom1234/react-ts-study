@@ -89,7 +89,7 @@ export const useContactsData = (page: number) => {
         console.log(prevData);
 
         // 기존 데이터로 신규 배열 생성
-        let nextData = [...prevData];
+        const nextData = [...prevData];
 
         try {
           // ex) 서버연동 fetch post contact -> id
