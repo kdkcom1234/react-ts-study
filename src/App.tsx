@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 // import Todo from "./modules/todo/Todo";
 import Layout from "./Layout";
 import { Suspense, lazy } from "react";
-import PostList from "./modules/post/PostList";
+// import PostList from "./modules/post/PostList";
 import OrderNotification from "./modules/order/OrderNotification/OrderNotification";
 import { postRoutes } from "./modules/post/PostList/routes";
 

@@ -1,6 +1,10 @@
 // commonjs 방식의 모듈 import
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ProvidePlugin } = require("webpack");
+const { env } = require("process");
+const {
+  BundleAnalyzerPlugin,
+} = require("webpack-bundle-analyzer");
 
 // commonjs 방식의 모듈선언 및 내보내기
 /** @type {import('webpack').Configuration} */
@@ -58,6 +62,13 @@ module.exports = {
     new ProvidePlugin({
       React: "react",
     }),
+    // 번들 분석기
+    !env.WEBPACK_SERVE
+      ? new BundleAnalyzerPlugin({
+          analyzerMode: "static",
+          openAnalyzer: false,
+        })
+      : null,
   ],
   // 웹팩 개발서버에 대한 설정을 넣는 곳
   // node.js express 프레임워크를 이용하여 웹서버를 띄움
@@ -69,5 +80,15 @@ module.exports = {
     historyApiFallback: true,
     static: "./dist",
     open: true,
+  },
+  // 소스맵 최적화
+  devtool: env.WEBPACK_SERVE
+    ? "eval-cheap-module-source-map"
+    : false,
+  // 빌드 캐시 최적화
+  cache: {
+    type: env.WEBPACK_SERVE
+      ? "memory"
+      : "filesystem",
   },
 };
